@@ -1,0 +1,18 @@
+{# Je lie notre page html à notre base.html.twig qui contient les link Bootsrap en autre  #}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	SportNet - Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur SportNet</h1>
+			<p class="lead">SportNet est une application de réseau social entre sportif</p>
+			<hr class="my-4">
+			<p>Pour commencer rendez-vous sur la page d'inscription.</p>
+			<a class="btn btn-dark btn-lg" href="#" role="button">Inscription</a>
+		</div>
+	</div>
+{% endblock %}
