@@ -1,11 +1,20 @@
 <?php
 
+
+    /** 
+     * Je créer les entité Post,City,Department et Region.
+     * J'ajoute des contraintes au entité grace à Assert (composer require symfony/validator).
+     * Puis je rajoute les fixtures grace à le commande "composer require --dev orm-fixtures" qui va me créer le fichier AppFixture.
+    */ 
+
+    
 namespace App\Entity;
 
 use App\Repository\DepartmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
@@ -15,10 +24,13 @@ class Department
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 1, max: 50)]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $code = null;
 
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: City::class)]
