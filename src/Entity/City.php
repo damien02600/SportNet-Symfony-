@@ -115,4 +115,9 @@ class City
 
         return $this;
     }
+
+    
+    public function __toString(){
+        return $this->name; // Remplacer champ par une propriété "string" de l'entité
+    }
 }
