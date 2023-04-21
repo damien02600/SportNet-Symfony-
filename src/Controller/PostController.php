@@ -35,15 +35,20 @@ class PostController extends AbstractController
     J'utilise le repository, le repository va récupérer toute la récupération de données.
     Donc du-coup j'importe le repository (PostRepository) que je renomme $repository
     */
+    /* 
+    Pour la pagination, j'importe PaginatorInterface que je renomme $paginator.
+    */
     public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        /*  
+        Je créer la variable posts puis il appelle $paginator qui vient de PaginatorInterface et celui-ci appelle la méthode paginate.
 
-
-$posts = $paginator->paginate(
-    $repository->findAll(),
-    $request->query->getInt('page', 1),
-    10
-);
+        */
+        $posts = $paginator->paginate(
+            $repository->findAll(),
+            $request->query->getInt('page', 1),
+            10
+        );
         /* 
         Je lui retourne la méthode render.
         La méthode render permet d'afficher la vue dans la page post.html.twig.
@@ -55,5 +60,12 @@ $posts = $paginator->paginate(
              */
             'post' => $posts
         ]);
+    }
+
+    #[Route("/post/nouveau", "post.new")]
+
+    public function new(): Response
+    {
+        return $this->render('pages/post/new.html.twig');
     }
 }
