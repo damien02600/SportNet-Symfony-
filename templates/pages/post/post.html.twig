@@ -9,6 +9,12 @@
 {% block body %}
 	<div class="container mt-4 text-center">
 		<h1>Les annonces</h1>
+		<div class="count mt-4">
+			<h6>
+				Il y a
+				{{ post.getTotalItemCount }}
+				Annonces au total</h6>
+		</div>
 	</div>
 
 	<div class="container">
@@ -29,6 +35,9 @@
 				</div>
 			{% endfor %}
 		</div>
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(post) }}
+			</div>
 	</div>
 {% endblock %}
 

@@ -4,9 +4,11 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /* 
 Je créer une class PostController qui a le meme nom que mon controller, 
@@ -33,8 +35,15 @@ class PostController extends AbstractController
     J'utilise le repository, le repository va récupérer toute la récupération de données.
     Donc du-coup j'importe le repository (PostRepository) que je renomme $repository
     */
-    public function index(PostRepository $repository): Response
+    public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+
+
+$posts = $paginator->paginate(
+    $repository->findAll(),
+    $request->query->getInt('page', 1),
+    10
+);
         /* 
         Je lui retourne la méthode render.
         La méthode render permet d'afficher la vue dans la page post.html.twig.
@@ -44,7 +53,7 @@ class PostController extends AbstractController
              * Je lui passe à la vue une variable 'post, j'appelle le repository est je fais un findAll.
              * FindAll permet de récuperer tout les données dans la base de donnée.
              */
-            'post' => $repository->findAll()
+            'post' => $posts
         ]);
     }
 }
