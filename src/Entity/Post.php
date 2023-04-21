@@ -36,6 +36,10 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sports $sport = null;
+
 
     /** 
      * Je créer une méthode magique
@@ -98,6 +102,18 @@ class Post
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getSport(): ?Sports
+    {
+        return $this->sport;
+    }
+
+    public function setSport(?Sports $sport): self
+    {
+        $this->sport = $sport;
 
         return $this;
     }

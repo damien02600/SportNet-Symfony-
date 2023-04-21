@@ -14,6 +14,7 @@ use App\Entity\City;
 use App\Entity\Post;
 use Faker\Generator;
 use App\Entity\Region;
+use App\Entity\Sports;
 use App\Entity\Department;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -34,7 +35,7 @@ class AppFixtures extends Fixture
 
         // Fixture Région
         // Je commence à remplir l'entité Region car c'est la seule qui n'a pas de clé étrangére.
-        
+
         $region = [];
         for ($i = 0; $i < 50; $i++) {
             $region = new Region();
@@ -66,11 +67,25 @@ class AppFixtures extends Fixture
             $city = new City();
             $city->setName($this->faker->word())
                 ->setCode(mt_rand(1000, 99999))
-                ->setDepartment($departments[mt_rand(0, count($departments) - 1)]);;
+                ->setDepartment($departments[mt_rand(0, count($departments) - 1)]);
             $citys[] = $city;
 
             $manager->persist($city);
         }
+
+
+        // Fixture sports
+
+        $sport = [];
+        for ($i = 0; $i < 50; $i++) {
+            $sport = new Sports();
+            $sport->setName($this->faker->word());
+            $sports[] = $sport;
+
+            $manager->persist($sport);
+        }
+
+
 
         // Fixture Post
 
@@ -78,10 +93,14 @@ class AppFixtures extends Fixture
             $post = new Post();
             $post->setTitle($this->faker->word())
                 ->setDescription($this->faker->text(300))
-                ->setCity($citys[mt_rand(0, count($citys) - 1)]);;
+                ->setCity($citys[mt_rand(0, count($citys) - 1)])
+                ->setSport($sports[mt_rand(0, count($sports) - 1)]);
 
             $manager->persist($post);
         }
+
+
+
 
 
         $manager->flush();
