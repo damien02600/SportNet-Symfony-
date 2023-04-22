@@ -1,20 +1,10 @@
 <?php
 
-
-    /** 
-     * Je créer les entité Post,City,Department et Region.
-     * J'ajoute des contraintes au entité grace à Assert (composer require symfony/validator).
-     * Puis je rajoute les fixtures grace à le commande "composer require --dev orm-fixtures" qui va me créer le fichier AppFixture.
-    */ 
-
-    
 namespace App\Entity;
 
 use App\Repository\CityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 class City
@@ -24,100 +14,68 @@ class City
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\NotBlank()]
-    #[Assert\Length(min: 1, max: 50)]
-    private ?string $name = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $cityName = null;
 
     #[ORM\Column]
-    #[Assert\Positive()]
-    private ?int $code = null;
+    private ?int $postalCode = null;
 
-    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Post::class)]
-    private Collection $posts;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $departmentName = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cities')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Department $department = null;
-
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-    }
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $regionName = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCityName(): ?string
     {
-        return $this->name;
+        return $this->cityName;
     }
 
-    public function setName(string $name): self
+    public function setCityName(string $cityName): self
     {
-        $this->name = $name;
+        $this->cityName = $cityName;
 
         return $this;
     }
 
-    public function getCode(): ?int
+    public function getPostalCode(): ?int
     {
-        return $this->code;
+        return $this->postalCode;
     }
 
-    public function setCode(int $code): self
+    public function setPostalCode(int $postalCode): self
     {
-        $this->code = $code;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPosts(): Collection
+    public function getDepartmentName(): ?string
     {
-        return $this->posts;
+        return $this->departmentName;
     }
 
-    public function addPost(Post $post): self
+    public function setDepartmentName(string $departmentName): self
     {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
-            $post->setCity($this);
-        }
+        $this->departmentName = $departmentName;
 
         return $this;
     }
 
-    public function removePost(Post $post): self
+    public function getRegionName(): ?string
     {
-        if ($this->posts->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getCity() === $this) {
-                $post->setCity(null);
-            }
-        }
+        return $this->regionName;
+    }
+
+    public function setRegionName(string $regionName): self
+    {
+        $this->regionName = $regionName;
 
         return $this;
-    }
-
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
-
-    public function setDepartment(?Department $department): self
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    
-    public function __toString(){
-        return $this->name; // Remplacer champ par une propriété "string" de l'entité
     }
 }
