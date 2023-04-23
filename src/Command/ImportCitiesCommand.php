@@ -19,6 +19,7 @@ private ImportCitiesService $importCitiesService
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // SymfonyStyle permet de faire de la mise en page dans le terminal
         $io = new SymfonyStyle($input, $output);
         $this->importCitiesService->importCities($io);
 

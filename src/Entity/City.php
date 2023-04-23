@@ -14,6 +14,9 @@ class City
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column]
+    private ?string $inseeCode = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $cityName = null;
 
@@ -29,6 +32,18 @@ class City
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getInseeCode(): ?string
+    {
+        return $this->inseeCode;
+    }
+
+    public function setInseeCode(string $inseeCode): self
+    {
+        $this->inseeCode = $inseeCode;
+
+        return $this;
     }
 
     public function getCityName(): ?string
