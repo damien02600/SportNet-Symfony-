@@ -2,10 +2,8 @@
 // Pour créer le formulaire j'ai utilisé la commande "php bin/console make:form"
 namespace App\Form;
 
-use App\Entity\City;
 use App\Entity\Post;
 use App\Entity\Sports;
-use App\Repository\CityRepository;
 use App\Repository\SportsRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -70,9 +68,9 @@ class PostType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Les sports',  
+                'label' => 'Choissisez le sport que vous voulez pratiquer',  
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-4'    
                 ],
                 'choice_label' => 'name',
                 'autocomplete' => true,
@@ -82,7 +80,7 @@ class PostType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Créer mon ingrédient'
+                'label' => 'Créer mon annonce'
             ]);
     }
 

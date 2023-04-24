@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	SymRecipe - Nouveau post
-{% endblock %}
 
 {% block body %}
 	<div class="container">
 
-		<h1 class='mt-4'>Création d'un post</h1>
+		<h1 class='mt-4'>Modification de l'annonce</h1>
+    
+
+		{# J'affiche le formulaire #}
+
 		{{ form_start(form)}}
 
 		<div class="form-group">
@@ -33,6 +34,5 @@
 		</a>
 
 		{{ form_end(form)}}
-	</div>
-{% endblock %}
 
+</div>{% endblock %}

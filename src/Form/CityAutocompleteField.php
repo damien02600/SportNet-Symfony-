@@ -16,7 +16,7 @@ class CityAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => City::class,
-            'placeholder' => 'Choose a City',
+            'placeholder' => 'Choissisez la ville ou vous vouler pratiquer',
             'choice_label' => 'city_name',
 
             'query_builder' => function(CityRepository $cityRepository) {

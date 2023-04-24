@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,14 +65,82 @@ class PostController extends AbstractController
         ]);
     }
 
+
+    // Ce controller permet d'ajouter un post
+
     #[Route("/post/nouveau", "post.new")]
 
-    public function new(): Response
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Je lui dit que mon post est égale au getData
+            $post = $form->getData();
+
+            $manager->persist($post);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre annonce a bien été créer'
+            );
+
+            return $this->redirectToRoute('post.index');
+        }
+
         return $this->render('pages/post/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
+
+        // Ce controller sert à modifier une annonce
+
+    #[Route('/post/edition/{id}', name: 'post.edit', methods: ['GET', 'POST'])]
+    public function edit(post $post, Request $request, EntityManagerInterface $manager): Response
+    {
+
+        $form = $this->createForm(PostType::class, $post);
+        // Je traite les donnée du formulaire avec handleRequest
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+
+            // persit = commit, flush = push
+            $manager->persist($post);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre annonce à été modifier avec succées !'
+            );
+
+            return  $this->redirectToRoute('post.index');
+        }
+
+        return $this->render(
+            'pages/post/edit.html.twig',
+            [
+                // J'affiche le formulaire
+                'form' => $form->createView()
+            ]
+        );
+    }
+
+        // Delete Recipe
+        #[Route('/post/suppression/{id}', name: 'post.delete', methods: ['GET'])]
+        public function delete(EntityManagerInterface $manager, Post $post): Response
+        {
+            $manager->remove($post);
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',
+                'Votre annonce à été supprimer avec succés !'
+            );
+    
+            return  $this->redirectToRoute('post.index');
+        }
 }
