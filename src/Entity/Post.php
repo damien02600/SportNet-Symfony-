@@ -36,6 +36,8 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?Sports $sport = null;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?City $city = null;
 
     /** 
      * Je créer une méthode magique
@@ -45,9 +47,7 @@ class Post
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-
     }
-
 
     public function getId(): ?int
     {
@@ -101,4 +101,17 @@ class Post
 
         return $this;
     }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
 }

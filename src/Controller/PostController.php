@@ -3,6 +3,8 @@
 // Je créer un PostController qui sera le controller de mes post
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,6 +68,10 @@ class PostController extends AbstractController
 
     public function new(): Response
     {
-        return $this->render('pages/post/new.html.twig');
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        return $this->render('pages/post/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

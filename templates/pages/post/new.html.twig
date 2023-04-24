@@ -1,14 +1,12 @@
-{# Je lie notre page html à notre base.html.twig qui contient les link Bootsrap en autre  #}
 {% extends 'base.html.twig' %}
-
-
 {% block title %}
-	SportNet - Ajouter une annonce
+	SymRecipe - Nouveau post
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4 text-center">
-		<h1>Ajouter une annonce</h1>
-        </div>
-{% endblock %}
+	<div class="container">
 
+		<h1 class='mt-4'>Création d'un post</h1>
+{{ form(form)}}
+	</div>
+{% endblock %}
