@@ -3,15 +3,20 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\Level;
 use App\Entity\Sports;
+use App\Entity\NumberOfPersons;
+use App\Repository\LevelRepository;
 use App\Repository\SportsRepository;
 use Symfony\Component\Form\AbstractType;
+use App\Repository\NumberOfPersonsRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -58,8 +63,36 @@ class PostType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            
 
+            ->add('level', EntityType::class, [
+                'class' => Level::class,
+                'query_builder' => function (LevelRepository $r) {
+                    return $r->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC');
+                },
+                'label' => 'Choissisez le niveau',  
+                'label_attr' => [
+                    'class' => 'form-label mt-4'    
+                ],
+                'choice_label' => 'name',
+                'autocomplete' => true,
+            ])   
+
+
+            ->add('numberofperson', EntityType::class, [
+                'class' => NumberOfPersons::class,
+                'query_builder' => function (NumberOfPersonsRepository $r) {
+                    return $r->createQueryBuilder('i')
+                        ->orderBy('i.numberPerson', 'ASC');
+                },
+                'label' => 'Choissisez le nombre de personne',  
+                'label_attr' => [
+                    'class' => 'form-label mt-4'    
+                ],
+                'choice_label' => 'numberPerson',
+                'autocomplete' => true,
+            ])   
+            
             ->add('city',  CityAutocompleteField::class)   
 
             ->add('sport', EntityType::class, [
