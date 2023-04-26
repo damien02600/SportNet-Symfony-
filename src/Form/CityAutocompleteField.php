@@ -18,6 +18,12 @@ class CityAutocompleteField extends AbstractType
             'class' => City::class,
             'placeholder' => 'Choissisez la ville ou vous vouler pratiquer',
             'choice_label' => 'city_name',
+            'attr' => [
+                'class' => 'form-control',
+            ],
+            'label_attr' => [
+                'class' => 'form-label mt-4'    
+            ],
 
             'query_builder' => function(CityRepository $cityRepository) {
                 return $cityRepository->createQueryBuilder('city');
