@@ -6,6 +6,7 @@ use App\Repository\NumberOfPersonsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NumberOfPersonsRepository::class)]
 class NumberOfPersons
@@ -16,6 +17,7 @@ class NumberOfPersons
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\LessThan(15)]
     private ?int $numberPerson = null;
 
     #[ORM\OneToMany(mappedBy: 'numberOfPerson', targetEntity: Post::class)]

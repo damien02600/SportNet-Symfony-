@@ -30,37 +30,16 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        // Fixture sports
-
-        $sport = [];
-        for ($i = 0; $i < 50; $i++) {
-            $sport = new Sports();
-            $sport->setName($this->faker->word());
-            $sports[] = $sport;
-
-            $manager->persist($sport);
-        }
-
-        // Fixture level
-
-        $level = [];
-        for ($i = 0; $i < 3; $i++) {
-            $level = new Level();
-            $level->setName($this->faker->word());
-            $levels[] = $level;
-
-            $manager->persist($level);
-        }
-
         // Fixture numberPerson
 
-        $numberPerson = [];
-        for ($i = 0; $i < 15; $i++) {
-            $numberPerson = new NumberOfPersons();
-            $numberPerson
-            ->setNumberPerson(mt_rand(1, 15));
-            $numberPersons[] = $numberPerson;
+        $numberPerson  = [];
+        $numbers = range(1, 15);
+        shuffle($numbers);
 
+        foreach ($numbers as $number) {
+            $numberPerson  = new NumberOfPersons();
+            $numberPerson ->setNumberPerson($number);
+            $numberPersons[] = $numberPerson ;
             $manager->persist($numberPerson);
         }
 
@@ -70,8 +49,6 @@ class AppFixtures extends Fixture
             $post = new Post();
             $post->setTitle($this->faker->word())
                 ->setDescription($this->faker->text(300))
-                ->setSport($sports[mt_rand(0, count($sports) - 1)])
-                ->setLevel($levels[mt_rand(0, count($levels) - 1)])
                 ->setNumberOfPerson($numberPersons[mt_rand(0, count($numberPersons) - 1)]);
 
             $manager->persist($post);

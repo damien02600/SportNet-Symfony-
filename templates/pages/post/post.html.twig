@@ -35,19 +35,20 @@
 					<div class="card-body">
 						<h4 class="card-title text-center">{{ post.title }}</h4>
 						<p class="card-text">{{ post.description }}</p>
-						<h6 class="card-title">Quels level :
-							{{ post.level }}</h6>
-						<h6 class="card-title">Combiens de personne :
-							{{ post.numberOfPerson }}</h6>
-						<h6 class="card-title">Quels Sport :
-							{{ post.sport }}</h6>
-						<h6 class="card-title">Quels villes :
-							{{ post.city }}</h6>
-						<h6 class="card-title  pb-2">Créer le :
-							{{ post.createdAt |date("d/m/Y")}}</h6>
-						<a href="#" class="btn btn-primary">Voir l'annonce</a>
-						<a href="{{ path('post.edit', {id: post.id} )}}" class='btn btn-warning'>Modifier</a>
-						<a href="{{ path('post.delete', {id: post.id} )}}" class='btn btn-danger'>Supprimer</a>
+						<hr>
+						<p class="card-title">Je cherche
+							{{ post.numberOfPerson }}
+							personnes de niveau
+							{{ post.level }}
+							pour pratiqué le
+							{{ post.sport }}
+							à
+							{{ post.city }}</p>
+						<a href="#" class="btn btn-primary  btn-sm m-1">Voir l'annonce</a>
+						<a href="{{ path('post.edit', {id: post.id} )}}" class='btn btn-warning m-1 btn-sm'>Modifier</a>
+						<a href="{{ path('post.delete', {id: post.id} )}}" class='btn btn-danger m-1 btn-sm'>Supprimer</a>
+						<p class="card-text text-secondary pb-2">Créer le
+							{{ post.createdAt |date("d/m/Y")}}</p>
 					</div>
 				</div>
 			{% endfor %}

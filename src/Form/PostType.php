@@ -70,12 +70,11 @@ class PostType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Choissisez le niveau',  
+                'label' => 'Quels est le niveau des personne que vous recherché',  
                 'label_attr' => [
-                    'class' => 'form-label mt-4'    
+                    'class' => 'form-select mt-4'    
                 ],
                 'choice_label' => 'name',
-                'autocomplete' => true,
             ])   
 
 
@@ -85,12 +84,11 @@ class PostType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.numberPerson', 'ASC');
                 },
-                'label' => 'Choissisez le nombre de personne',  
+                'label' => 'Quels est le nombre de personne que vous recherché',  
                 'label_attr' => [
                     'class' => 'form-label mt-4'    
                 ],
                 'choice_label' => 'numberPerson',
-                'autocomplete' => true,
             ])   
             
             ->add('city',  CityAutocompleteField::class)   
@@ -101,7 +99,7 @@ class PostType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Choissisez le sport que vous voulez pratiquer',  
+                'label' => 'Quels est le sport que vous souhaité pratiqué',  
                 'label_attr' => [
                     'class' => 'form-label mt-4'    
                 ],
