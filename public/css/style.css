@@ -1,3 +1,15 @@
-h1 {
-  background-color: red;
-  }
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.bgImg{
+  width: 50%;
+  min-height: 50vh;
+  background-image: linear-gradient(rgba(9, 0, 77, 0.65),rgba(9,0,77,0.65)), url(../images/jogging.jpg);
+  background-size: cover;
+  background-position: center;
+  padding: 10px 8%;
+}

@@ -68,7 +68,7 @@ class PostType extends AbstractType
                 'class' => Level::class,
                 'query_builder' => function (LevelRepository $r) {
                     return $r->createQueryBuilder('i')
-                        ->orderBy('i.name', 'ASC');
+                        ->orderBy('i.name');
                 },
                 'attr' => [
                     'class' => 'form-control',
