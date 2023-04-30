@@ -5,6 +5,10 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
+
+        # Le provider va nous permettre de nous fournir les utilisateur
+        # Et les firewalls, c'est le coeur de la sécurité
+        # Dans app_user_provider et dans property, je rajoute username car c'est grace au username que l'utilisateur va s'entengistrer
         app_user_provider:
             entity:
                 class: App\Entity\User

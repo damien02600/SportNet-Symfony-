@@ -1,6 +1,9 @@
 <?php
 
-// Je créer l'entité User grace à la commande php bin/console make:user
+/* IMPORTANT : Pour générer ma class User je lance la commande php bin/console make:user, puis je compléte l'entité
+// Je met en place un User avec la commande Make User, ce qui va modifier scurity.yaml en nous déclarant un provider et firewall.
+    provider-> va nous permettre de récupérer un utilisateur dans la base de données */
+    
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -30,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
+    // Je rajoute plainPassword
     private ?string $plainPassword;
 
     #[ORM\Column]
@@ -51,6 +55,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
 
+
+    // Je rajoute la méthode magique
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

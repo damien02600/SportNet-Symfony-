@@ -53,6 +53,9 @@ class AppFixtures extends Fixture
                 ->setGender(mt_rand(0, 1) == 1 ? true : false)
                 ->setMail($this->faker->email())
                 ->setRoles(['ROLE_USER'])
+                /* Je lui set un PlainPassword,
+                    il va les persisté, et aller dans User.php voir le entitylISTENER 
+                    j'encode le password grace au entityListeners (UserListener.php) */
                 ->setPlainPassword('password');
 
                 $manager->persist($user);
