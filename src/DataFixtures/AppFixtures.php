@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $myDate = new \DateTime('2023-05-01');
 
-            $user->setUsername($this->faker->name())
+            $user->setUsername($this->faker->word())
                 ->setBirthdate($myDate)
                 ->setGender(mt_rand(0, 1) == 1 ? true : false)
                 ->setMail($this->faker->email())
