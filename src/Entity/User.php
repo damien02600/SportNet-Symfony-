@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     // Je rajoute plainPassword
-    private ?string $plainPassword;
+    private ?string $plainPassword = null;
 
     #[ORM\Column]
     #[Assert\NotBlank()]
@@ -109,17 +109,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getPlainPassword(): string
+    /**
+     * Get the value of plainPassword
+     */
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): self
+
+
+    /**
+     * Set the value of plainPassword
+     *
+     * @return  self
+     */
+    public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
 
         return $this;
     }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
