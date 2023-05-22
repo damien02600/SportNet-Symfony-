@@ -1,0 +1,23 @@
+{# Je lie notre page html à notre base.html.twig qui contient les link Bootsrap en autre  #}
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+	{{ post.title}}
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto">
+		<h1>{{ post.title }}</h1>
+		<p>{{ post.description}}</p>
+		<p>Je recherche
+			{{ post.numberOfPerson }}
+			personnes de niveau
+			{{ post.level }}
+			pour pratiqué le
+			{{ post.sport }}
+			à
+			{{ post.city }}</p>
+	</div>
+{% endblock %}
+

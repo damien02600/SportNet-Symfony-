@@ -96,7 +96,7 @@ class PostController extends AbstractController
         ]);
     }
 
-        // Ce controller sert à modifier une annonce
+    // Ce controller sert à modifier une annonce
 
     #[Route('/post/edition/{id}', name: 'post.edit', methods: ['GET', 'POST'])]
     public function edit(post $post, Request $request, EntityManagerInterface $manager): Response
@@ -129,18 +129,28 @@ class PostController extends AbstractController
         );
     }
 
-        // Delete Recipe
-        #[Route('/post/suppression/{id}', name: 'post.delete', methods: ['GET'])]
-        public function delete(EntityManagerInterface $manager, Post $post): Response
-        {
-            $manager->remove($post);
-            $manager->flush();
-    
-            $this->addFlash(
-                'success',
-                'Votre annonce à été supprimer avec succés !'
-            );
-    
-            return  $this->redirectToRoute('post.index');
-        }
+    // Delete Recipe
+    #[Route('/post/suppression/{id}', name: 'post.delete')]
+    public function delete(EntityManagerInterface $manager, Post $post): Response
+    {
+        $manager->remove($post);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Votre annonce à été supprimer avec succés !'
+        );
+
+        return  $this->redirectToRoute('post.i ndex');
+    }
+
+    // Affichage en detail du post
+    #[Route('/post/show/{id}', name: 'post.show')]
+    public function show(Post $post): Response
+    {
+
+        return  $this->render('pages/post/show.html.twig', [
+            "post" => $post
+        ]);
+    }
 }
