@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /* 
 Je créer une class PostController qui a le meme nom que mon controller, 
@@ -41,6 +43,7 @@ class PostController extends AbstractController
     /* 
     Pour la pagination, j'importe PaginatorInterface que je renomme $paginator.
     */
+    #[IsGranted('ROLE_USER')]
     public function index(PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         /*  
@@ -67,7 +70,7 @@ class PostController extends AbstractController
 
 
     // Ce controller permet d'ajouter un post
-
+    #[IsGranted('ROLE_USER')]
     #[Route("/post/nouveau", "post.new")]
 
     public function new(Request $request, EntityManagerInterface $manager): Response
@@ -97,7 +100,7 @@ class PostController extends AbstractController
     }
 
     // Ce controller sert à modifier une annonce
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/post/edition/{id}', name: 'post.edit', methods: ['GET', 'POST'])]
     public function edit(post $post, Request $request, EntityManagerInterface $manager): Response
     {

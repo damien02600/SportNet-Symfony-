@@ -44,6 +44,9 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?NumberOfPersons $numberOfPerson = null;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?User $user = null;
+
     /** 
      * Je créer une méthode magique
      * A chaque fois que l'objet se construit, on va lui dire que  $this->createdAt est un DateTimeImmutable
@@ -139,6 +142,18 @@ class Post
     public function setNumberOfPerson(?NumberOfPersons $numberOfPerson): self
     {
         $this->numberOfPerson = $numberOfPerson;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
