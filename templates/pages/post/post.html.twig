@@ -44,11 +44,12 @@
 							{{ post.sport }}
 							à
 							{{ post.city }}</p>
-							<p>Auteur : {{ post.user }}</p>
+						<p>Auteur :
+							{{ post.user }}</p>
 
 						<a href="{{ path('post.show', {id: post.id} )}}" class="btn btn-primary  btn-sm m-1">Voir l'annonce</a>
 						<a href="{{ path('post.edit', {id: post.id} )}}" class='btn btn-warning m-1 btn-sm'>Modifier</a>
-						<a href="{{ path('post.delete', {id: post.id} )}}" class='btn btn-danger m-1 btn-sm'>Supprimer</a>
+						<a href="{{ path('post.delete', {id: post.id} )}}" value="Delete post" onclick="confirm('Etes-vous sure de vouloir supprimer ce post') || event.preventDefault()" class='btn btn-danger m-1 btn-sm'>Supprimer</a>
 						<p class="card-text text-secondary pb-2">Créer le
 							{{ post.createdAt |date("d/m/Y")}}</p>
 					</div>

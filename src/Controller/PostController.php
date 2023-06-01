@@ -144,7 +144,7 @@ class PostController extends AbstractController
             'Votre annonce à été supprimer avec succés !'
         );
 
-        return  $this->redirectToRoute('post.i ndex');
+        return  $this->redirectToRoute('post.index');
     }
 
     // Affichage en detail du post
