@@ -39,28 +39,16 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findPost(?int $nbPosts): array
+    {
+        // Je lui dit de récupérer les recettes quant elles sont en public
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC');
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+            if ($nbPosts !== 0 || $nbPosts !== null) {
+                $queryBuilder->setMaxResults($nbPosts);
+            }
+            return $queryBuilder->getQuery()
+            ->getResult();
+    }
 }
