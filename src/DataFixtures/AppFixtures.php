@@ -15,9 +15,10 @@ use App\Entity\Post;
 use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Level;
+use App\Entity\Sports;
+use App\Entity\Comment;
 use Doctrine\ORM\Cache\Region;
 use App\Entity\NumberOfPersons;
-use App\Entity\Sports;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -25,6 +26,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
 
+    
     private Generator $faker;
 
     public function __construct()
@@ -75,16 +77,16 @@ class AppFixtures extends Fixture
 
             $manager->persist($city);
         }
-                // Fixture numberPerson
+        // Fixture numberPerson
 
-                $numberPerson = [];
-                for ($i = 0; $i < 10; $i++) {
-                    $numberPerson = new NumberOfPersons();
-                    $numberPerson->setNumberPerson(mt_rand(1, 10));
-                    $numberPersons[] = $numberPerson;
-        
-                    $manager->persist($numberPerson);
-                }
+        $numberPerson = [];
+        for ($i = 0; $i < 10; $i++) {
+            $numberPerson = new NumberOfPersons();
+            $numberPerson->setNumberPerson(mt_rand(1, 10));
+            $numberPersons[] = $numberPerson;
+
+            $manager->persist($numberPerson);
+        }
 
         // Fixture levels
         // Je commence à remplir l'entité Region car c'est la seule qui n'a pas de clé étrangére.
@@ -140,6 +142,9 @@ class AppFixtures extends Fixture
             $manager->persist($post);
         }
 
+
+    
         $manager->flush();
     }
+    
 }

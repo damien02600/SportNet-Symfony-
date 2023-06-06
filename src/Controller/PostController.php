@@ -105,6 +105,11 @@ class PostController extends AbstractController
     public function edit(post $post, Request $request, EntityManagerInterface $manager): Response
     {
 
+                // Vérifier si l'utilisateur actuellement connecté est l'auteur du post
+                if ($post->getUser() !== $this->getUser()) {
+                    throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier ce post.');
+                }
+
         $form = $this->createForm(PostType::class, $post);
         // Je traite les donnée du formulaire avec handleRequest
         $form->handleRequest($request);
@@ -133,9 +138,16 @@ class PostController extends AbstractController
     }
 
     // Delete Recipe
+    #[IsGranted('ROLE_USER')]
     #[Route('/post/suppression/{id}', name: 'post.delete')]
     public function delete(EntityManagerInterface $manager, Post $post): Response
     {
+
+       // Vérifier si l'utilisateur actuellement connecté est l'auteur du post
+       if ($post->getUser() !== $this->getUser()) {
+        throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à supprimer ce post.');
+    }
+
         $manager->remove($post);
         $manager->flush();
 
